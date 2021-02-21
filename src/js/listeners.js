@@ -9,16 +9,16 @@ export async function addKeydownListener() {
     const keyCode = event.keyCode;
     switch (keyCode) {
       case 38:
-        this.direction = "UP";
+        if (prevDirection !== "DOWN") this.direction = "UP";
         break;
       case 40:
-        this.direction = "DOWN";
+        if (prevDirection !== "UP") this.direction = "DOWN";
         break;
       case 39:
-        this.direction = "RIGHT";
+        if (prevDirection !== "LEFT") this.direction = "RIGHT";
         break;
       case 37:
-        this.direction = "LEFT";
+        if (prevDirection !== "RIGHT") this.direction = "LEFT";
         break;
     }
     const boundHandler = this.onTimerTick.bind(this);

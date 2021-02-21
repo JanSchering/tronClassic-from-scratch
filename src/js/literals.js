@@ -13,6 +13,8 @@ const GAME = {
   ctx: undefined,
   playerInfo: {},
   direction: "NONE",
+  onTimerTick: undefined,
+  scores: undefined,
   x: STARTING_COORD,
   y: STARTING_COORD,
 };

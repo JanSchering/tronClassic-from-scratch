@@ -12,7 +12,6 @@ const initFunc = init.bind(gameInfo);
 async function main() {
   const { x, y } = gameInfo;
   await initFunc();
-  gameInfo.ctx.fillRect(x, y, 5, 5);
   const listener = addKeydownListener.bind(gameInfo);
   listener();
 }
@@ -21,36 +20,39 @@ main();
 
 //GAME FUNCTION
 function onTimerTick() {
-  let { direction, previousDirection } = this;
+  let { direction, previousDirection, x, y } = this;
   const { ctx, intervalID } = gameInfo;
-  console.log(this.x, this.y);
 
   if (direction !== "NONE") {
     switch (direction) {
       case "UP":
-        this.y -= 5;
+        y -= 5;
         break;
       case "DOWN":
-        this.y += 5;
+        y += 5;
         break;
       case "LEFT":
-        this.x -= 5;
+        x -= 5;
         break;
       case "RIGHT":
-        this.x += 5;
+        x += 5;
         break;
     }
-    const info = ctx.getImageData(this.x, this.y, 1, 1).data;
+    this.scores.innerHTML = parseInt(this.scores.innerHTML) + 5;
+    const info = ctx.getImageData(x, y, 1, 1).data;
     const hex = getColorCode(info[0], info[1], info[2]);
-    if (hex === ctx.fillStyle || this.x < 0 || this.y < 0) {
+    if (hex === ctx.fillStyle || x < 0 || y < 0) {
       window.alert("YOU LOSE");
       clearInterval(intervalID);
       ctx.clearRect(0, 0, 1000, 500);
-      this.x = Literals.STARTING_COORD;
-      this.y = Literals.STARTING_COORD;
-      ctx.fillRect(this.x, this.y, 5, 5);
+      x = Literals.STARTING_COORD;
+      y = Literals.STARTING_COORD;
+      ctx.fillRect(x, y, 5, 5);
     } else {
-      ctx.fillRect(this.x, this.y, 5, 5);
+      ctx.fillRect(x, y, 5, 5);
     }
+
+    this.x = x;
+    this.y = y;
   }
 }
