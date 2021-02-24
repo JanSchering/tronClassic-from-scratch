@@ -1,6 +1,32 @@
-canvas {
+.board {
   border: 1px solid blue;
   position: fixed;
+}
+
+.colorPicker {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+}
+
+.pickerChoice {
+  height: 50px;
+  width: 50px;
+}
+
+/* The Colors for the different choices in the ColorPicker */
+.blue {
+  background-color: #0066ff;
+}
+.green {
+  background-color: #33cc33;
+}
+.yellow {
+  background-color: #ffff00;
+}
+.red {
+  background-color: #ff0000;
 }
 
 .setup {

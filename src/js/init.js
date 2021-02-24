@@ -1,4 +1,4 @@
-import * as Literals from "./literals.js";
+import { SETUP, RED, COLORPICKER } from "./literals.js";
 import { createPlayers } from "./players.js";
 
 export async function init() {
@@ -6,12 +6,15 @@ export async function init() {
     // GET CANVAS AND INITIALIZE
     const canvas = document.getElementById("testCanvas");
     this.ctx = canvas.getContext("2d");
-    this.ctx.fillStyle = "#FF0000";
+    this.ctx.fillStyle = RED;
 
     // CREATE INITIAL FORM
     const tmpContainer = document.createElement("div");
-    tmpContainer.innerHTML = Literals.NAMEINPUT;
+    tmpContainer.innerHTML = SETUP;
     const target = tmpContainer.childNodes[0];
+    tmpContainer.innerHTML = COLORPICKER;
+    const colorPickerNode = tmpContainer.childNodes[0];
+    target.appendChild(colorPickerNode);
 
     // APPEND INITIAL FORM TO DOM AND WAIT FOR PLAYER TO HIT ENTER
     document.querySelector("body").appendChild(target);

@@ -1,4 +1,4 @@
-const NAMEINPUT = `<div class="setup">
+const SETUP = `<div class="setup">
         <p>Enter Names:</p>
         <label>Player 1</label>
         <input type="text" id="name_1"></input>
@@ -10,16 +10,31 @@ const NAMEINPUT = `<div class="setup">
     </div>
     `;
 
+const COLORPICKER = `<div class="colorPicker">
+<div class="pickerChoice blue" ></div>
+<div class="pickerChoice red" ></div>
+<div class="pickerChoice green" ></div>
+<div class="pickerChoice yellow" ></div>
+</div>
+`;
+
 const STARTING_COORD = 200;
 
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 500;
 
+//DIRECTIONS
 const UP = "UP";
 const DOWN = "DOWN";
 const LEFT = "LEFT";
 const RIGHT = "RIGHT";
 const NONE = "NONE";
+
+//COLORS
+const BLUE = "#0066ff";
+const GREEN = "#33cc33";
+const YELLOW = "#ffff00";
+const RED = "#ff0000";
 
 // INIT LITERALS AND VARIABLES
 const GAME = {
@@ -43,7 +58,8 @@ const GAME = {
 };
 
 export {
-  NAMEINPUT,
+  SETUP,
+  COLORPICKER,
   STARTING_COORD,
   GAME,
   CANVAS_HEIGHT,
@@ -53,4 +69,8 @@ export {
   LEFT,
   RIGHT,
   NONE,
+  BLUE,
+  RED,
+  GREEN,
+  YELLOW,
 };
