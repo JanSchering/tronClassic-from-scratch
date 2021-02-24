@@ -20,39 +20,66 @@ main();
 
 //GAME FUNCTION
 function onTimerTick() {
-  let { direction, previousDirection, x, y } = this;
+  let { player1, player2 } = this;
   const { ctx, intervalID } = gameInfo;
 
-  if (direction !== "NONE") {
-    switch (direction) {
+  player1 = movePlayer(player1);
+  player2 = movePlayer(player2);
+
+  if (!isAlive(player1, ctx) || !isAlive(player2, ctx)) {
+    window.alert("YOU LOSE");
+    restart(player1, player2, intervalID, ctx);
+  } else {
+    ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
+    ctx.fillRect(player2.x_pos, player2.y_pos, 5, 5);
+  }
+
+  this.player1 = player1;
+  this.player2 = player2;
+}
+
+function movePlayer(player) {
+  if (player.direction !== "NONE") {
+    switch (player.direction) {
       case "UP":
-        y -= 5;
+        player.y_pos -= 5;
         break;
       case "DOWN":
-        y += 5;
+        player.y_pos += 5;
         break;
       case "LEFT":
-        x -= 5;
+        player.x_pos -= 5;
         break;
       case "RIGHT":
-        x += 5;
+        player.x_pos += 5;
         break;
     }
-    this.scores.innerHTML = parseInt(this.scores.innerHTML) + 5;
-    const info = ctx.getImageData(x, y, 1, 1).data;
-    const hex = getColorCode(info[0], info[1], info[2]);
-    if (hex === ctx.fillStyle || x < 0 || y < 0) {
-      window.alert("YOU LOSE");
-      clearInterval(intervalID);
-      ctx.clearRect(0, 0, 1000, 500);
-      x = Literals.STARTING_COORD;
-      y = Literals.STARTING_COORD;
-      ctx.fillRect(x, y, 5, 5);
-    } else {
-      ctx.fillRect(x, y, 5, 5);
-    }
-
-    this.x = x;
-    this.y = y;
   }
+  return player;
+}
+
+function isAlive(player, ctx) {
+  if (player.direction !== "NONE") {
+    const positionLookAhead = ctx.getImageData(player.x_pos, player.y_pos, 1, 1)
+      .data;
+    const hex = getColorCode(
+      positionLookAhead[0],
+      positionLookAhead[1],
+      positionLookAhead[2]
+    );
+    return !(hex === ctx.fillStyle) && player.x_pos >= 0 && player.y_pos >= 0;
+  } else {
+    return true;
+  }
+}
+
+function restart(player1, player2, intervalID, ctx) {
+  clearInterval(intervalID);
+  ctx.clearRect(0, 0, 1000, 500);
+  player1.x_pos = Literals.STARTING_COORD;
+  player1.y_pos = Literals.STARTING_COORD;
+  player2.x_pos = Literals.STARTING_COORD;
+  player2.y_pos = Literals.STARTING_COORD * 2;
+  ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
+  ctx.fillRect(player2.x_pos, player2.y_pos, 5, 5);
 }

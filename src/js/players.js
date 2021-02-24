@@ -4,7 +4,8 @@ function createPlayer(name, idx) {
   return {
     name,
     x_pos: BASE,
-    y_pos: BASE * idx,
+    y_pos: BASE * (idx + 1),
+    direction: "NONE",
   };
 }
 
