@@ -12,6 +12,15 @@ const NAMEINPUT = `<div class="setup">
 
 const STARTING_COORD = 200;
 
+const CANVAS_WIDTH = 1000;
+const CANVAS_HEIGHT = 500;
+
+const UP = "UP";
+const DOWN = "DOWN";
+const LEFT = "LEFT";
+const RIGHT = "RIGHT";
+const NONE = "NONE";
+
 // INIT LITERALS AND VARIABLES
 const GAME = {
   intervalID: undefined,
@@ -23,14 +32,25 @@ const GAME = {
     name: undefined,
     x_pos: undefined,
     y_pos: undefined,
-    direction: "NONE",
+    direction: NONE,
   },
   player2: {
     name: undefined,
     x_pos: undefined,
     y_pos: undefined,
-    direction: "NONE",
+    direction: NONE,
   },
 };
 
-export { NAMEINPUT, STARTING_COORD, GAME };
+export {
+  NAMEINPUT,
+  STARTING_COORD,
+  GAME,
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  NONE,
+};

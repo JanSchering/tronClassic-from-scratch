@@ -1,16 +1,24 @@
-import * as Literals from "./literals.js";
-import { createPlayers } from "./players.js";
+import {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+  NONE,
+  GAME,
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  STARTING_COORD,
+} from "./literals.js";
 import { getColorCode } from "./utils.js";
 import { init } from "./init.js";
 import { addKeydownListener } from "./listeners.js";
 
-let gameInfo = Literals.GAME;
+let gameInfo = GAME;
 gameInfo.onTimerTick = onTimerTick;
 
 const initFunc = init.bind(gameInfo);
 
 async function main() {
-  const { x, y } = gameInfo;
   await initFunc();
   const listener = addKeydownListener.bind(gameInfo);
   listener();
@@ -39,27 +47,27 @@ function onTimerTick() {
 }
 
 function movePlayer(player) {
-  if (player.direction !== "NONE") {
-    switch (player.direction) {
-      case "UP":
-        player.y_pos -= 5;
-        break;
-      case "DOWN":
-        player.y_pos += 5;
-        break;
-      case "LEFT":
-        player.x_pos -= 5;
-        break;
-      case "RIGHT":
-        player.x_pos += 5;
-        break;
-    }
+  switch (player.direction) {
+    case UP:
+      player.y_pos -= 5;
+      break;
+    case DOWN:
+      player.y_pos += 5;
+      break;
+    case LEFT:
+      player.x_pos -= 5;
+      break;
+    case RIGHT:
+      player.x_pos += 5;
+      break;
+    default:
+      break;
   }
   return player;
 }
 
 function isAlive(player, ctx) {
-  if (player.direction !== "NONE") {
+  if (player.direction !== NONE) {
     const positionLookAhead = ctx.getImageData(player.x_pos, player.y_pos, 1, 1)
       .data;
     const hex = getColorCode(
@@ -75,11 +83,11 @@ function isAlive(player, ctx) {
 
 function restart(player1, player2, intervalID, ctx) {
   clearInterval(intervalID);
-  ctx.clearRect(0, 0, 1000, 500);
-  player1.x_pos = Literals.STARTING_COORD;
-  player1.y_pos = Literals.STARTING_COORD;
-  player2.x_pos = Literals.STARTING_COORD;
-  player2.y_pos = Literals.STARTING_COORD * 2;
+  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  player1.x_pos = STARTING_COORD;
+  player1.y_pos = STARTING_COORD;
+  player2.x_pos = STARTING_COORD;
+  player2.y_pos = STARTING_COORD * 2;
   ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
   ctx.fillRect(player2.x_pos, player2.y_pos, 5, 5);
 }

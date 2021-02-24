@@ -1,6 +1,5 @@
 import * as Literals from "./literals.js";
 import { createPlayers } from "./players.js";
-import { addKeydownListener } from "./listeners.js";
 
 export async function init() {
   const responses = new Promise((resolve, reject) => {
@@ -27,7 +26,6 @@ export async function init() {
       this.player2 = players[1];
       document.getElementById("player2").textContent = this.player2.name;
       target.parentNode.removeChild(target);
-      console.log(this.player2);
       this.ctx.fillRect(this.player1.x_pos, this.player1.y_pos, 5, 5);
       this.ctx.fillRect(this.player2.x_pos, this.player2.y_pos, 5, 5);
       resolve(this.ctx);
