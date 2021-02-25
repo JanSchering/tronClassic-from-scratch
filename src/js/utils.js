@@ -1,3 +1,5 @@
+import { COLORPICKER } from "./literals.js";
+
 /**
  * @description Helper-Function: Takes a numeric value for each the red, green and blue amount that we want
  * and returns the respective hexcode.
@@ -19,4 +21,26 @@ function rgbToHex(r, g, b) {
  */
 export function getColorCode(r, g, b) {
   return "#" + ("000000" + rgbToHex(r, g, b)).slice(-6);
+}
+
+/**
+ *
+ * @param {string} id The ID of the ColorPicker container Node.
+ * @param {string} defaultColor possible values are: "red", "green", "blue", "yellow"
+ * @returns {HTMLDivElement} A container thay contains a set of colored containers
+ */
+export function createColorPicker(id, defaultColor) {
+  const tmpContainer = document.createElement("div");
+  tmpContainer.innerHTML = COLORPICKER;
+  const colorPicker = tmpContainer.childNodes[0];
+  colorPicker.id = id;
+  if (defaultColor) {
+    const choices = colorPicker.querySelectorAll("div[data-color]");
+    Array.prototype.forEach.call(choices, (choice) => {
+      if (choice.getAttribute("data-color") === defaultColor) {
+        choice.className += " picked";
+      }
+    });
+  }
+  return colorPicker;
 }

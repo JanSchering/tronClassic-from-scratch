@@ -41,3 +41,19 @@ export async function addKeydownListener() {
     this.intervalID = setInterval(boundHandler, 33);
   });
 }
+
+export const colorPickerListener = function () {
+  return function (pickerNode) {
+    const pickerChoices = pickerNode.querySelectorAll(".pickerChoice");
+    Array.prototype.forEach.call(pickerChoices, (choice) => {
+      choice.addEventListener("click", (e) => {
+        const prevPicked = pickerNode.querySelector(
+          `div[data-color="${this.color}"]`
+        );
+        prevPicked.className = prevPicked.className.replace("picked", "");
+        this.color = e.target.getAttribute("data-color");
+        e.target.className += " picked";
+      });
+    });
+  };
+};

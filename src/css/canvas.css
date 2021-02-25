@@ -3,16 +3,27 @@
   position: fixed;
 }
 
+.player {
+  display: flex;
+}
+
 .colorPicker {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 25px;
   display: flex;
   flex-direction: row;
 }
 
 .pickerChoice {
-  height: 50px;
-  width: 50px;
+  height: 20px;
+  width: 20px;
+  margin-left: 4px;
+}
+
+.picked {
+  height: 22px;
+  width: 22px;
+  border: 1px solid black;
 }
 
 /* The Colors for the different choices in the ColorPicker */

@@ -1,34 +1,42 @@
-import { SETUP, RED, COLORPICKER } from "./literals.js";
-import { createPlayers } from "./players.js";
+import { SETUP, RED } from "./literals.js";
+import { createColorPicker } from "./utils.js";
+import { colorPickerListener } from "./listeners.js";
 
 export async function init() {
   const responses = new Promise((resolve, reject) => {
-    // GET CANVAS AND INITIALIZE
-    const canvas = document.getElementById("testCanvas");
-    this.ctx = canvas.getContext("2d");
-    this.ctx.fillStyle = RED;
-
     // CREATE INITIAL FORM
     const tmpContainer = document.createElement("div");
     tmpContainer.innerHTML = SETUP;
-    const target = tmpContainer.childNodes[0];
-    tmpContainer.innerHTML = COLORPICKER;
-    const colorPickerNode = tmpContainer.childNodes[0];
-    target.appendChild(colorPickerNode);
+    const form = tmpContainer.childNodes[0];
 
-    // APPEND INITIAL FORM TO DOM AND WAIT FOR PLAYER TO HIT ENTER
-    document.querySelector("body").appendChild(target);
+    // APPEND INITIAL FORM TO DOM
+    document.querySelector("body").appendChild(form);
+
+    // Inititalize the ColorPickerListener
+    const pickerListener = colorPickerListener();
+
+    // Set up a ColorPicker for each player
+    const picker1 = createColorPicker("picker1", "red");
+    pickerListener.bind(this.player1)(picker1);
+    document.getElementById("p1Setup").appendChild(picker1);
+    const picker2 = createColorPicker("picker2", "blue");
+    pickerListener.bind(this.player2)(picker2);
+    document.getElementById("p2Setup").appendChild(picker2);
+
+    // Attach Listener to the submit button
     document.getElementById("submit").addEventListener("click", () => {
+      // GET CANVAS AND INITIALIZE
+      const canvas = document.getElementById("testCanvas");
+      this.ctx = canvas.getContext("2d");
+      this.ctx.fillStyle = RED;
+
       //CREATE PLAYERS
-      const names = [];
-      names.push(document.getElementById("name_1").value);
-      names.push(document.getElementById("name_2").value);
-      const players = createPlayers(names);
-      this.player1 = players[0];
+      this.player1.name = document.getElementById("name_1").value;
+      this.player2.name = document.getElementById("name_2").value;
       document.getElementById("player1").textContent = this.player1.name;
-      this.player2 = players[1];
       document.getElementById("player2").textContent = this.player2.name;
-      target.parentNode.removeChild(target);
+      console.log(this.player1.color);
+      form.parentNode.removeChild(form);
       this.ctx.fillRect(this.player1.x_pos, this.player1.y_pos, 5, 5);
       this.ctx.fillRect(this.player2.x_pos, this.player2.y_pos, 5, 5);
       resolve(this.ctx);
