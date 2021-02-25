@@ -37,12 +37,15 @@ function onTimerTick() {
   player1 = movePlayer(player1);
   player2 = movePlayer(player2);
 
-  if (
-    !isAlive(player1, ctx, p1Color, p2Color) ||
-    !isAlive(player2, ctx, p1Color, p2Color)
-  ) {
-    window.alert("YOU LOSE");
-    restart(player1, player2, intervalID, ctx);
+  const p1Alive = isAlive(player1, ctx, p1Color, p2Color);
+  const p2Alive = isAlive(player2, ctx, p1Color, p2Color);
+
+  if (!p1Alive) {
+    window.alert(`${player1.name} Loses`);
+    restart(this.player1, this.player2, intervalID, ctx);
+  } else if (!p2Alive) {
+    window.alert(`${player2.name} Loses`);
+    restart(this.player1, this.player2, intervalID, ctx);
   } else {
     ctx.fillStyle = COLORS[player1.color];
     ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
@@ -83,11 +86,14 @@ function isAlive(player, ctx, color1, color2) {
       positionLookAhead[1],
       positionLookAhead[2]
     );
+
     return (
       !(hex === color1) &&
       !(hex === color2) &&
       player.x_pos >= 0 &&
-      player.y_pos >= 0
+      player.x_pos < CANVAS_WIDTH &&
+      player.y_pos >= 0 &&
+      player.y_pos < CANVAS_HEIGHT
     );
   } else {
     return true;
@@ -96,6 +102,8 @@ function isAlive(player, ctx, color1, color2) {
 
 function restart(player1, player2, intervalID, ctx) {
   clearInterval(intervalID);
+  player1.direction = NONE;
+  player2.direction = NONE;
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   player1.x_pos = STARTING_COORD;
   player1.y_pos = STARTING_COORD;
