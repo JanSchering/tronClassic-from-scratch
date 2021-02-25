@@ -1,4 +1,4 @@
-import { SETUP, RED } from "./literals.js";
+import { SETUP, COLORS } from "./literals.js";
 import { createColorPicker } from "./utils.js";
 import { colorPickerListener } from "./listeners.js";
 
@@ -28,16 +28,18 @@ export async function init() {
       // GET CANVAS AND INITIALIZE
       const canvas = document.getElementById("testCanvas");
       this.ctx = canvas.getContext("2d");
-      this.ctx.fillStyle = RED;
 
       //CREATE PLAYERS
       this.player1.name = document.getElementById("name_1").value;
       this.player2.name = document.getElementById("name_2").value;
       document.getElementById("player1").textContent = this.player1.name;
       document.getElementById("player2").textContent = this.player2.name;
-      console.log(this.player1.color);
+      console.log(this.player1);
+      console.log(this.player2);
       form.parentNode.removeChild(form);
+      this.ctx.fillStyle = COLORS[this.player1.color];
       this.ctx.fillRect(this.player1.x_pos, this.player1.y_pos, 5, 5);
+      this.ctx.fillStyle = COLORS[this.player2.color];
       this.ctx.fillRect(this.player2.x_pos, this.player2.y_pos, 5, 5);
       resolve(this.ctx);
     });

@@ -8,6 +8,7 @@ import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   STARTING_COORD,
+  COLORS,
 } from "./literals.js";
 import { getColorCode } from "./utils.js";
 import { init } from "./init.js";
@@ -30,15 +31,22 @@ main();
 function onTimerTick() {
   let { player1, player2 } = this;
   const { ctx, intervalID } = gameInfo;
+  const p1Color = COLORS[player1.color];
+  const p2Color = COLORS[player2.color];
 
   player1 = movePlayer(player1);
   player2 = movePlayer(player2);
 
-  if (!isAlive(player1, ctx) || !isAlive(player2, ctx)) {
+  if (
+    !isAlive(player1, ctx, p1Color, p2Color) ||
+    !isAlive(player2, ctx, p1Color, p2Color)
+  ) {
     window.alert("YOU LOSE");
     restart(player1, player2, intervalID, ctx);
   } else {
+    ctx.fillStyle = COLORS[player1.color];
     ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
+    ctx.fillStyle = COLORS[player2.color];
     ctx.fillRect(player2.x_pos, player2.y_pos, 5, 5);
   }
 
@@ -66,7 +74,7 @@ function movePlayer(player) {
   return player;
 }
 
-function isAlive(player, ctx) {
+function isAlive(player, ctx, color1, color2) {
   if (player.direction !== NONE) {
     const positionLookAhead = ctx.getImageData(player.x_pos, player.y_pos, 1, 1)
       .data;
@@ -75,7 +83,12 @@ function isAlive(player, ctx) {
       positionLookAhead[1],
       positionLookAhead[2]
     );
-    return !(hex === ctx.fillStyle) && player.x_pos >= 0 && player.y_pos >= 0;
+    return (
+      !(hex === color1) &&
+      !(hex === color2) &&
+      player.x_pos >= 0 &&
+      player.y_pos >= 0
+    );
   } else {
     return true;
   }
@@ -88,6 +101,8 @@ function restart(player1, player2, intervalID, ctx) {
   player1.y_pos = STARTING_COORD;
   player2.x_pos = STARTING_COORD;
   player2.y_pos = STARTING_COORD * 2;
+  ctx.fillStyle = COLORS[player1.color];
   ctx.fillRect(player1.x_pos, player1.y_pos, 5, 5);
+  ctx.fillStyle = COLORS[player2.color];
   ctx.fillRect(player2.x_pos, player2.y_pos, 5, 5);
 }

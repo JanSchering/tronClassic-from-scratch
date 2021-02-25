@@ -35,10 +35,12 @@ const RIGHT = "RIGHT";
 const NONE = "NONE";
 
 //COLORS
-const BLUE = "#0066ff";
-const GREEN = "#33cc33";
-const YELLOW = "#ffff00";
-const RED = "#ff0000";
+const COLORS = {
+  red: "#ff0000",
+  blue: "#0066ff",
+  green: "#33cc33",
+  yellow: "#ffff00",
+};
 
 // INIT LITERALS AND VARIABLES
 const GAME = {
@@ -75,8 +77,5 @@ export {
   LEFT,
   RIGHT,
   NONE,
-  BLUE,
-  RED,
-  GREEN,
-  YELLOW,
+  COLORS,
 };
