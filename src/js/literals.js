@@ -1,6 +1,6 @@
 //TEMPLATE FOR THE SETUP-FORM
 const SETUP = `<div class="setup">
-  <p>Enter Names:</p>
+  <p>Enter Names and choose color:</p>
   <div class="player" id="p1Setup">
     <label>Player 1</label>
     <input type="text" id="name_1"> 
