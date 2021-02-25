@@ -42,6 +42,9 @@ export async function addKeydownListener() {
   });
 }
 
+/**
+ * @returns {(HTMLDivElement) => {}} A function that creates a listener on a given ColorPicker-Element.
+ */
 export const colorPickerListener = function () {
   return function (pickerNode) {
     const pickerChoices = pickerNode.querySelectorAll(".pickerChoice");

@@ -1,3 +1,4 @@
+//TEMPLATE FOR THE SETUP-FORM
 const SETUP = `<div class="setup">
   <p>Enter Names:</p>
   <div class="player" id="p1Setup">
@@ -14,6 +15,7 @@ const SETUP = `<div class="setup">
 </div>
     `;
 
+// TEMPLATE FOR THE COLORPICKER
 const COLORPICKER = `<div class="colorPicker">
   <div class="pickerChoice blue" data-color="blue"></div>
   <div class="pickerChoice red" data-color="red"></div>
@@ -22,8 +24,10 @@ const COLORPICKER = `<div class="colorPicker">
 </div>
 `;
 
+//BASE NUMBER THAT CAN BE USED AS A STARTING COORDINATE FOR THE CANVAS
 const STARTING_COORD = 200;
 
+//THE HEIGHT AND WIDTH OF THE CANVAS IN THE HTML
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 500;
 
